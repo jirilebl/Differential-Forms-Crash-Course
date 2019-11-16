@@ -1,0 +1,798 @@
+\documentclass[12pt]{article}
+
+\usepackage{enumerate}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{graphics}
+\usepackage{eepic}
+\usepackage{wrapfig}
+\usepackage[a]{esvect}
+
+\usepackage[margin=1in]{geometry}
+
+\usepackage{parskip}
+
+\usepackage[theoremfont]{newpxtext}
+\usepackage[varbb]{newpxmath}
+
+\usepackage[T1]{fontenc}
+
+
+\newcommand{\norm}[1]{\left\lVert {#1} \right\rVert}
+\newcommand{\abs}[1]{\left\lvert {#1} \right\rvert}
+\newcommand{\snorm}[1]{\lVert {#1} \rVert}
+\newcommand{\sabs}[1]{\lvert {#1} \rvert}
+
+\title{Differential Forms Crash Course}
+\author{Ji\v{r}\'i Lebl}
+
+\begin{document}
+
+\maketitle
+
+%\section{Differential forms in $\mathbb R^3$}
+
+The classical theorems we learned this semester can be conveniently stated
+in a way that gives a vast generalization in one simple statement,
+and also allows one to more easily remember/derive the statements of the
+theorems, and simplify computations.
+We will only scratch the surface (no pun intended) here.
+
+We will mostly worry about 3 dimensions and see how the ideas apply in 2
+dimensions.  But the ideas apply in any number of dimensions with almost
+no change.
+
+In 3 dimensions there are 4
+different kinds of what are called \emph{differential forms}.
+There are 0-forms, 1-forms, 2-forms,
+3-forms.  You have seen 0-forms and 1-forms without knowing
+about it.  Differential forms are things that are ``integrated'' on the
+geometric object of the corresponding dimension (point, path, surface,
+region).  In $n$ dimensions there would be $n+1$ different kinds of
+differential forms, but let us stick to 3 dimensions for simplicity.
+
+\section{0-forms}
+
+In this setup, functions are called $0$-forms.  $0$-forms are ``integrated''
+on points, as points are the $0$-dimensional objects.
+That is, functions are evaluated at points.  If $P$ is point, then let
+$$
+\int_P f = f(P) .
+$$
+For example,
+if $f(x,y,z) = x^2-1+z$ and $P=(1,2,3)$, then
+$$
+\int_P f = f(1,2,3) = 1^2-1+3 =3 .
+$$
+Points can have orientation, that is positive or negative.  Above we dealt
+with a positively oriented $P$.  If $Q$ is negatively oriented, then 
+$$
+\int_Q f = -f(Q).
+$$
+If $Q = (2,1,0)$ is negatively oriented, then
+$$
+\int_Q f = -f(2,1,0) = -( 2^2-1+0 ) = -3.
+$$
+We can also add and subtract points.  So suppose that $P=(1,2,3)$ and
+$R = (0,0,2)$ are both positively oriented, we write $-P$ as the negatively
+oriented $P$ and then we could write $R-P$.  Then
+$$
+\int_{R-P} f = f(R)-f(P) = f(0,0,2)-f(1,2,3) = 1-3 = -2.
+$$
+That looks a lot like the ``integral'' of the ``boundary'' of a segment of
+a curve that starts at $P$ and ends at $R$, and this is exactly where this
+notation will show up.
+You then have to be careful
+not to do arithmetic on the components of $R-P$, despite what it looks like.
+These are points, not vectors, and when points add or subtract, it is in the
+sense above.
+
+We haven't really done anything except make up new notation so far, and
+it may seem like we're making up nonsense, but the notation will be useful for
+stating the fundamental theorem of calculus as the same theorem as 
+Green's, Stokes', divergence, etc.
+
+\section{1-forms}
+
+One-forms are expressions such as
+$$
+f(x,y,z) \, dx + 
+g(x,y,z) \, dy + 
+h(x,y,z) \, dz .
+$$
+For example,
+$$
+x^2y \, dx + 
+3xe^z \, dy + 
+(z+y) \, dz .
+$$
+
+One-forms are things that are integrated on (oriented) paths, as paths are
+one-dimensional.  If $C$ is a path, then we define 
+\begin{multline*}
+\int_C
+f(x,y,z) \, dx + 
+g(x,y,z) \, dy + 
+h(x,y,z) \, dz 
+\\
+=
+\int_C
+\langle f(x,y,z) , g(x,y,z) , h(x,y,z) \rangle \cdot \hat{t} \, ds .
+\end{multline*}
+And you have seen this expression before.
+We use the following formula for the actual computation.
+Suppose $C$ is parametrized by $t$
+for $a \leq t \leq b$.  That is, $x,y,z$ are functions of $t$.  Then
+\begin{multline} \label{eq:oneformev}
+\int_C
+f(x,y,z) \, dx + 
+g(x,y,z) \, dy + 
+h(x,y,z) \, dz 
+\\
+=
+\int_a^b 
+\left( f\bigl(x,y,z\bigr) \frac{d x}{d t}
++
+g\bigl(x,y,z\bigr) \frac{d y}{d t}
++ 
+h\bigl(x,y,z\bigr) \frac{d z}{d t}
+\right) \, dt.
+\end{multline}
+For example, suppose $C$ is the straight line from $(0,0,0)$ to $(1,2,3)$
+parametrized by $x(t) = t$, $y(t) = 2t$, $z(t) = 3t$, for $0 \leq t \leq 1$.
+Then
+$$
+\int_C
+x^2y \, dx + 
+3xe^z \, dy + 
+(z+y) \, dz 
+=
+\int_0^1 
+\left( (t)^2 (2t) \bigr) (1)
++
+\bigl(3te^{3t} \bigr) (2)
++ 
+\bigl(3t+2t\bigr) (3)
+\right) \, dt,
+$$
+which is not difficult to integrate.
+
+We often give a name to the one-form.  We say
+$\omega = f(x,y,z) \, dx + g(x,y,z) \, dy + h(x,y,z) \, dz$.
+Then
+$$
+\int_C \omega = 
+\int_C
+f(x,y,z) \, dx + 
+g(x,y,z) \, dy + 
+h(x,y,z) \, dz .
+$$
+
+One way that one-forms arise is as derivatives of functions.
+For example, let $f$ be a function, then what you called
+\emph{total derivative}
+in multivariable calculus,
+is really the ``$d$ operator'' on $0$-forms giving $1$-forms.  That
+is,
+$$
+df =
+\frac{\partial f}{\partial x}\, dx + 
+\frac{\partial f}{\partial y}\, dy + 
+\frac{\partial f}{\partial z}\, dz .
+$$
+For example, if $f(x,y,z) = x^2e^yz$, then
+$$
+df = 
+2xe^y z\, dx + 
+x^2e^yz\, dy + 
+x^2e^y\, dz .
+$$
+Not every vector field is a gradient vector field, and so
+similarly, not every $1$-form is a derivative of a function.
+
+\section{Boundaries of paths and the fundamental theorem}
+
+If $C$ is a path from point $Q$ to point $P$, then we say that the boundary
+of $C$ is $P$ with positive orientation and $Q$ with negative orientation.
+This is written as $P-Q$.  We write the boundary as $\partial C = P-Q$.
+
+The upshot of all this is the easy statement of the fundamental theorem
+of calculus that will look like all the other statements of the fundamental
+theorem.  We can simply write it as
+$$
+\int_C df = \int_{\partial C} f
+$$
+Let's interpret this equation.  The left hand side is
+$$
+\int_C df = \int_C \frac{\partial f}{\partial x}\, dx + 
+\frac{\partial f}{\partial y}\, dy + 
+\frac{\partial f}{\partial z}\, dz .
+$$
+While the right hand side, assuming $C$ goes from $Q$ to $P$, is
+$$
+\int_{\partial C} f = f(P) - f(Q) .
+$$
+If $f(x,y,z) = 
+x^2e^yz$ as above, and $C$ is the path parametrized by
+$\gamma(t) = (t,3t,t+1)$ for $0 \leq t \leq 1$, so starting at $(0,0,1)$ and ending
+at $(1,3,2)$, then
+$$
+\int_C df = \int_{\partial C} f = f(1,3,2)-f(0,0,1) = 1^2 e^3 2 - 0^2e^0 1 =
+2e^3.
+$$
+
+\section{$2$-forms}
+
+OK, so far we've only seemed to make up notation for things we already know.
+For $2$-forms we need to be even more careful with orientation and we
+need to keep track of it on the form side of things.  For this we introduce
+a new object, the so-called \emph{wedge} or \emph{wedge product}.  It is a
+way to put together forms.  In particular, we can
+write
+$$
+dx \wedge dy, \qquad
+dy \wedge dz, \qquad
+dz \wedge dx .
+$$
+We define that 
+$$
+dx \wedge dy = - dy \wedge dx, \qquad
+dy \wedge dz = - dz \wedge dy, \qquad
+dz \wedge dx = - dx \wedge dz .
+$$
+Finally, a wedge of something with itself is just zero:
+$$
+dx \wedge dx = 0, \qquad
+dy \wedge dy = 0, \qquad
+dz \wedge dz = 0 .
+$$
+A $2$-form is an expression of the form
+$$
+\omega = 
+f\, dy \wedge dz + 
+g\, dz \wedge dx +
+h\, dx \wedge dy .
+$$
+If any other wedges appear, we can use the above rules to convert them to this
+form.  For example
+$$
+x^2 \, dy \wedge dz + 
+y \, dx \wedge dz +
+z^2\, dx \wedge dx 
+=
+x^2 \, dy \wedge dz - y \, dz \wedge dx .
+$$
+We also impose some further algebra rules on this product.  It is really
+what we call bilinear.  So if $\omega, \eta$, and $\gamma$ are one-forms, then
+$$
+(\omega + \eta) \wedge \gamma
+=
+\omega \wedge \gamma
++
+\eta \wedge \gamma ,
+$$
+and
+$$
+\omega \wedge (\eta + \gamma)
+=
+\omega \wedge \eta
++
+\omega \wedge \gamma .
+$$
+Further, if $f$ is a function, then
+$$
+f \omega \wedge \eta =
+f (\omega \wedge \eta) =
+\omega \wedge ( f \eta) .
+$$
+Let's see this on an example:
+
+$
+( x^2 y \, dx + z^2 \, dz) \wedge (e^z \, dy + 8 \, dz)
+=
+x^2 y \, dx \wedge (e^z \, dy + 8 \, dz)
++
+z^2 \, dz \wedge (e^z \, dy + 8 \, dz)
+\hfill
+$
+
+$
+\hfill
+=
+x^2 y e^z \, dx \wedge dy
++
+8 x^2 y \, dx \wedge dz
++
+z^2 e^z \, dz \wedge dy
++
+8 z^2 \, dz \wedge dz
+\hfill
+$
+
+$
+\hfill
+=
+- z^2 e^z \, dy \wedge dz
+-
+8 x^2 y \, dz \wedge dx
++
+x^2 y e^z \, dx \wedge dy .
+$
+
+In general,
+\begin{multline*}
+(f\, dx + g\, dy + h \, dz) \wedge
+(a\, dx + b\, dy + c \, dz)
+=
+fa\, dx \wedge dx +
+fb\, dx \wedge dy +
+fc\, dx \wedge dz
+\\
++
+ga\, dy \wedge dx +
+gb\, dy \wedge dy +
+gc\, dy \wedge dz 
+\\
++
+ha\, dz \wedge dx +
+hb\, dz \wedge dy +
+hc\, dz \wedge dz
+\\
+=
+(gc-hb)\, dy \wedge dz +
+(ha-fc)\, dz \wedge dx +
+(fb - ga) \, dx \wedge dy .
+\end{multline*}
+You should recognize the formula for the cross product.  That is,
+the result is a 2-form whose coefficients are
+$\langle f,g,h \rangle \times
+\langle a,b,c \rangle$.
+The wedge product
+is always the right product in the right context.
+
+OK, now that we know what $2$-forms are, what do we do with them.
+First, let's see how to differentiate 1-forms to get 2-forms,
+with the $d$ operator.
+We want the derivative to be linear, so that in particular
+$d(\omega + \eta)= d\omega + d\eta$.  When we have an expression such
+as $f \, dx$, we define
+$$
+d(f \, dx) = df \wedge dx .
+$$
+Similarly for $dy$ and $dz$.  Let's compute the derivative of
+any 1-form:
+
+$
+\displaystyle
+d ( f \, dx + g \, dy + h \, dz ) = 
+df \wedge dx + dg \wedge dy + dh \wedge dz
+\hfill
+$
+
+$
+\displaystyle
+\hfill
+=
+\frac{\partial f}{\partial x} \, dx \wedge dx
++
+\frac{\partial f}{\partial y} \, dy \wedge dx
++
+\frac{\partial f}{\partial z} \, dz \wedge dx
+\hfill
+$
+
+$
+\displaystyle
+\hfill
+\hfill
++
+\frac{\partial g}{\partial x} \, dx \wedge dy
++
+\frac{\partial g}{\partial y} \, dy \wedge dy
++
+\frac{\partial g}{\partial z} \, dz \wedge dy
+\hfill
+$
+
+$
+\displaystyle
+\hfill
+\hfill
++
+\frac{\partial h}{\partial x} \, dx \wedge dz
++
+\frac{\partial h}{\partial y} \, dy \wedge dz
++
+\frac{\partial h}{\partial z} \, dz \wedge dz
+\hfill
+$
+
+$
+\displaystyle
+\hfill
+=
+\left( \frac{\partial h}{\partial y} - \frac{\partial g}{\partial z} \right) \, dy \wedge dz
++
+\left( \frac{\partial f}{\partial z} - \frac{\partial h}{\partial x} \right) \, dz \wedge dx
++
+\left( \frac{\partial g}{\partial x} - \frac{\partial f}{\partial y} \right)
+\, dy \wedge dx .
+$
+
+You should recognise the formula for the curl.  That is, if the functions
+$f,g,h$ are coefficients of a vector field, then the 
+coefficients of the derivative of the one-form
+are the coefficients of the curl of the vector field.
+
+For example,
+$$
+d( x \, dx + y^2 \, dz)
+=
+2 y \, dy \wedge dz .
+$$
+
+The formula $\nabla \times \nabla f = 0$ appears in the fact that
+$$
+d(df) = 0 .
+$$
+This is in fact a feature of the $d$ operator, and it is sometimes
+written as $d^2 = 0$.
+
+OK, now that we have the derivative, we also want to integrate $2$-forms.
+$2$-forms are integrated over surfaces.  Let $S$ be an oriented surface
+where $\hat{n}$ is the unit normal that gives the orientation.
+We define
+$$
+\int_S
+f\, dy \wedge dz + 
+g\, dz \wedge dx +
+h\, dx \wedge dy
+=
+\iint_S \langle f, g, h \rangle \cdot \hat{n} \, dS .
+$$
+We use only one integral sign for integrals of forms by convention.
+
+There is another way to see what this integral is using the change of
+variables formula from multivariable calculus.
+Denote
+$$
+\frac{\partial (x,y)}{\partial (u,v)}
+=
+\det \left(
+\begin{bmatrix}
+\frac{\partial x}{\partial u}
+&
+\frac{\partial x}{\partial v}
+\\
+\frac{\partial y}{\partial u} 
+&
+\frac{\partial y}{\partial v}
+\end{bmatrix}
+\right)
+=
+\frac{\partial x}{\partial u}
+\frac{\partial y}{\partial v}
+-
+\frac{\partial x}{\partial v}
+\frac{\partial y}{\partial u} .
+$$
+This expression is the determinant of the derivative from the
+change of variables formula for 2 dimensional integrals.
+This formula is called the Jacobian determinant.
+%  Do not worry about what the expression is if you haven't
+%seen it.
+Let $S$ be parametrized by $(u,v)$ ranging over a domain $D$,
+where the ordering $u$ and then $v$
+gives the orientation of $S$ via the right hand rule.
+So $x$, $y$, and $z$ are functions of $(u,v)$.
+Then
+\begin{multline*}
+\int_S
+f\, dy \wedge dz + 
+g\, dz \wedge dx +
+h\, dx \wedge dy
+\\
+=
+\iint_D
+\left(
+f 
+\frac{\partial (y,z)}{\partial (u,v)}
++
+g
+\frac{\partial (z,x)}{\partial (u,v)}
++
+h
+\frac{\partial (x,y)}{\partial (u,v)}
+\right)
+\,
+du\, dv .
+\end{multline*}
+Compare this to how we computed 1-form integrals above in
+equation \eqref{eq:oneformev}, and it will feel very familiar.
+
+For example, let $\omega = x \, dy \wedge dz + y \, dz \wedge dz
++ z \, dx \wedge dy$ be the
+$2$-form, and let
+$S$ be the surface given by the graph $z=x^2+y^2$ where $x$ and $y$ lie in
+the unit square $0 \leq x,y \leq 1$.  We have $x=u$, $y=v$, $z=u^2+v^2$.
+The domain $D$ is the unit square $0 \leq u,v \leq 1$.  Then
+\begin{multline*}
+\int_S \omega =
+\int_S
+x\, dy \wedge dz + 
+y\, dz \wedge dx +
+z\, dx \wedge dy
+\\
+=
+\int_0^1 \int_0^1
+\left(
+u 
+(-2u)
++
+v
+(-2v)
++
+(u^2+v^2)
+\right)
+\,
+du\, dv 
+\\
+=
+\int_0^1 \int_0^1
+(-u^2-v^2)
+\,
+du\, dv 
+=
+\frac{-2}{3} .
+\end{multline*}
+
+This is a good way to remember how to integrate parametrized surfaces.
+
+\section{Stokes' Theorem}
+
+The classical Stokes' Theorem can now be stated.  Let $S$ be an oriented
+surface and $\partial S$ be the boundary curve of $S$ oriented according to
+the right hand rule as we have for the classical Stokes' Theorem.
+Let $\omega$ be a 1-form.  Then Stokes' Theorem in terms of
+differential forms is
+$$
+\int_S d \omega = \int_{\partial S} \omega .
+$$
+If $\omega = f \, dx + g \, dy + h \, dz$, then
+$d \omega$, as we saw above, is really the 2-form whose coefficients are
+the components of $\nabla \times \langle f , g, h \rangle$.  So the left 
+hand side is
+$$
+\int_S d \omega = \iint_S 
+\nabla \times \langle f , g, h \rangle \cdot \hat{n} \, dS .
+$$
+The right hand side is the integral 
+$$
+\int_{\partial S} \omega =
+\int_{\partial S} 
+\langle f , g, h \rangle \cdot \hat{t} \, ds .
+$$
+That is,
+we have the classical Stokes'.
+Notice how the expression
+$$
+\int_S d \omega = \int_{\partial S} \omega
+$$
+is now the same for both the Stokes' Theorem and the Fundamental Theorem of
+Calculus.  The only difference is that $S$ is a surface or a curve
+and 
+$\omega$ is a 0-form (function) or a 1-form.
+
+\section{3-forms}
+
+If we take one more wedge we find that the only forms that survive our
+rules, namely that $dx \wedge dx = dy \wedge dy = dz \wedge dz = 0$,
+are the ones that look like
+$$
+f \, dx \wedge dy \wedge dz .
+$$
+Notice that
+
+$\displaystyle
+dx \wedge dy \wedge dz
+=
+dz \wedge dx \wedge dy
+=
+dy \wedge dz \wedge dx
+\hfill
+$
+
+$
+\displaystyle
+\hfill
+=
+- 
+dy \wedge dx \wedge dz
+=
+-
+dx \wedge dz \wedge dy
+=
+-
+dz \wedge dy \wedge dx .
+$
+
+Integrating 3-forms is easy.  Write the 3-form as $f \, dx \wedge dy \wedge
+dz$ and then, given a region $R$ in 3-space, we have
+$$
+\int_R f \, dx \wedge dy \wedge dz
+=
+\iiint_R f\, dV ,
+$$
+where $dV$ is the volume measure.  We also put orientation on $R$, and
+the above is for positive orientation.  If orientation is not mentioned, we
+always mean the positive orientation.  If $R$ would be
+oriented negatively, then we define the integral
+to be the negative of the integral for positive orientation.
+Let us not worry about it, and just do positively oriented
+regions in 3-space.
+
+Example:  Let $R$ be the region defined by $-1 < x < 2$, $2 < y < 3$, $0<z<1$.
+Then
+
+$
+\displaystyle
+\int_R x^2 y e^z dx \wedge dy \wedge dz
+=
+\int_{-1}^2 \int_2^3 \int_0^1 
+x^2 y e^z \, dz \, dy \, dx
+=
+\int_{-1}^2 \int_2^3 
+x^2 y (e-1) \, dy \, dx
+\hfill
+$
+
+$\displaystyle
+\hfill
+=
+\int_{-1}^2
+x^2 \left(\frac{3^2}{2} - \frac{2^2}{2}\right) (e-1) \, dx
+=
+\left( \frac{2^3}{3} - \frac{(-1)^3}{3} \right) \left(\frac{3^2}{2} -
+\frac{2^2}{2}\right) (e-1) .
+$
+
+
+
+Next, how do we differentiate 2-forms to get 3-forms?  We apply essentially
+the same formula as before:
+$$
+d(
+f\, dy \wedge dz + 
+g\, dz \wedge dx +
+h\, dx \wedge dy
+)
+=
+df \wedge dy \wedge dz + 
+dg \wedge dz \wedge dx +
+dh \wedge dx \wedge dy .
+$$
+Let us carry this through.  For example, let's start with the first
+term:
+
+$
+\displaystyle
+df \wedge dy \wedge dz 
+=
+\left(
+\frac{\partial f}{\partial x} \, dx +
+\frac{\partial f}{\partial y} \, dy +
+\frac{\partial f}{\partial z} \, dz 
+\right)
+\wedge dy \wedge dz 
+\hfill
+$
+
+$
+\displaystyle
+\hfill
+=
+\frac{\partial f}{\partial x} \, dx 
+\wedge dy \wedge dz +
+\frac{\partial f}{\partial y} \, dy 
+\wedge dy \wedge dz +
+\frac{\partial f}{\partial z} \, dz 
+\wedge dy \wedge dz 
+=
+\frac{\partial f}{\partial x} \, dx \wedge dy \wedge dz .
+$
+
+In the second term, it is only the $\frac{\partial g}{\partial y}$ term to
+survive, and in the third term it is only the
+$\frac{\partial h}{\partial z}$ term.
+
+All in all we find
+that for
+$\omega = f\, dy \wedge dz + 
+g\, dz \wedge dx +
+h\, dx \wedge dy$,
+$$
+d\omega =
+d(
+f\, dy \wedge dz + 
+g\, dz \wedge dx +
+h\, dx \wedge dy
+)
+=
+\left(\frac{\partial f}{\partial x} +
+\frac{\partial g}{\partial y} +
+\frac{\partial h}{\partial z} \right) \, dx \wedge dy \wedge dz .
+$$
+And again, notice the expression for the divergence pops up.
+We are then not surprised that the Divergence Theorem
+$$
+\iiint_R \nabla \cdot \langle f,g,h \rangle \, dV = \iint_{\partial R}
+\langle f,g,h \rangle \cdot
+\hat{n} \, dS,
+$$
+where $R$ is oriented with the outward unit normal $\hat{n}$
+and
+$\partial R$ is the boundary of $R$ oriented compatibly,
+takes the form
+$$
+\int_R d \omega = \int_{\partial R} \omega .
+$$
+
+The formula
+$$
+\int_\Omega d \omega = \int_{\partial \Omega} \omega .
+$$
+is called the \emph{Generalized Stokes' Theorem}.  Here $\omega$ is a
+$(k-1)$-form and $\Omega$ is a $k$-dimensional geometric object over which to
+integrate.  In 3-space, $\omega$ is a 0, 1, 2, and
+$\Omega$ is a path (1-dimensional), a surface
+(2-dimensional), or a region (3-dimensional).
+
+\section{Applying in the plane}
+
+In the plane you can think of everything as if it were in three space but
+with no $z$ dependence, so no $dz$.  So there are only 0-forms, 1-forms and 2-forms.
+In fact the only $2$-form that appears is the $f dx \wedge dy$ since
+the other possibility gets you $dy \wedge dx = - dx \wedge dy$.
+The derivative of a one-form is
+\begin{equation*}
+\begin{split}
+d(f \, dx + g \, dy)
+& =
+df \wedge dx + dg \wedge dy
+\\
+& =
+\left(\frac{\partial f}{\partial x} dx + \frac{\partial f}{\partial y} dy \right)  \wedge dx
++
+\left(\frac{\partial g}{\partial x} dx + \frac{\partial g}{\partial y} dy \right)  \wedge dy
+\\
+& =
+\frac{\partial f}{\partial y} dy \wedge dx
++
+\frac{\partial g}{\partial x} dx  \wedge dy
+\\
+& =
+\left(\frac{\partial g}{\partial x} -
+\frac{\partial f}{\partial y} \right) \,dx  \wedge dy .
+\end{split}
+\end{equation*}
+If $R$ is a region in the plane and $\partial R$ is its boundary, then
+the Generalized Stokes' Theorem says:
+\begin{equation*}
+\begin{split}
+\int_{\partial R}
+f \, dx + g \, dy
+=
+\int_R 
+d (f \, dx + g \, dy)
+=
+\int_R
+\left(\frac{\partial g}{\partial x} -
+\frac{\partial f}{\partial y} \right) \,dx  \wedge dy .
+\end{split}
+\end{equation*}
+And you will recognize Green's Theorem.
+
+\end{document}
