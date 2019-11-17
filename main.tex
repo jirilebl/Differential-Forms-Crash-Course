@@ -47,16 +47,17 @@ no change.
 
 In 3 dimensions there are 4
 different kinds of what are called \emph{differential forms}.
-There are 0-forms, 1-forms, 2-forms,
-3-forms.  You have seen 0-forms and 1-forms without knowing
+There are $0$-forms, $1$-forms, $2$-forms,
+$3$-forms.  You have seen $0$-forms and $1$-forms without knowing
 about it.  Differential forms are things that are ``integrated'' on the
 geometric object of the corresponding dimension (point, path, surface,
 region).  In $n$ dimensions there would be $n+1$ different kinds of
 differential forms, but let us stick to 3 dimensions for simplicity.
 
-\section{0-forms}
+\section*{0-forms}
 
-In this setup, functions are called $0$-forms.  $0$-forms are ``integrated''
+In the context of differential forms,
+functions are called \emph{$0$-forms}.  These $0$-forms are ``integrated''
 on points, as points are the $0$-dimensional objects.
 That is, functions are evaluated at points.  If $P$ is point, then let
 $$
@@ -95,7 +96,7 @@ it may seem like we're making up nonsense, but the notation will be useful for
 stating the fundamental theorem of calculus as the same theorem as 
 Green's, Stokes', divergence, etc.
 
-\section{1-forms}
+\section*{1-forms}
 
 One-forms are expressions such as
 $$
@@ -112,19 +113,18 @@ $$
 
 One-forms are things that are integrated on (oriented) paths, as paths are
 one-dimensional.  If $C$ is a path, then we define 
-\begin{multline*}
+\begin{equation*}
 \int_C
 f(x,y,z) \, dx + 
 g(x,y,z) \, dy + 
 h(x,y,z) \, dz 
-\\
 =
 \int_C
 \langle f(x,y,z) , g(x,y,z) , h(x,y,z) \rangle \cdot \hat{t} \, ds .
-\end{multline*}
+\end{equation*}
 And you have seen this expression before.
 We use the following formula for the actual computation.
-Suppose $C$ is parametrized by $t$
+Suppose the path $C$ is parametrized by $t$
 for $a \leq t \leq b$.  That is, $x,y,z$ are functions of $t$.  Then
 \begin{multline} \label{eq:oneformev}
 \int_C
@@ -144,21 +144,32 @@ h\bigl(x,y,z\bigr) \frac{d z}{d t}
 For example, suppose $C$ is the straight line from $(0,0,0)$ to $(1,2,3)$
 parametrized by $x(t) = t$, $y(t) = 2t$, $z(t) = 3t$, for $0 \leq t \leq 1$.
 Then
-$$
+\begin{equation*}
+\begin{split}
 \int_C
 x^2y \, dx + 
 3xe^z \, dy + 
 (z+y) \, dz 
-=
+& =
 \int_0^1 
 \left( (t)^2 (2t) \bigr) (1)
 +
 \bigl(3te^{3t} \bigr) (2)
 + 
 \bigl(3t+2t\bigr) (3)
-\right) \, dt,
-$$
-which is not difficult to integrate.
+\right) \, dt
+\\
+& = \left[
+\frac{t^4}{2}
++
+\frac{6t-2}{3} e^{3t}
++
+\frac{15t^2}{2}
+\right]_{t=0}^1
+=
+\frac{4}{3} e^3 + \frac{26}{3} .
+\end{split}
+\end{equation*}
 
 We often give a name to the one-form.  We say
 $\omega = f(x,y,z) \, dx + g(x,y,z) \, dy + h(x,y,z) \, dz$.
@@ -193,7 +204,18 @@ $$
 Not every vector field is a gradient vector field, and so
 similarly, not every $1$-form is a derivative of a function.
 
-\section{Boundaries of paths and the fundamental theorem}
+For example, $\omega = -y\, dx + x \, dy$ is not the total derivative
+of any function $f$.  If it were, then
+\begin{equation*}
+\frac{\partial^2 f}{\partial y \partial x} = 
+\frac{\partial (-y)}{\partial y} = -1,
+\quad \text{but} \quad 
+\frac{\partial^2 f}{\partial x \partial y} = 
+\frac{\partial (x)}{\partial x} = 1,
+\end{equation*}
+and that is impossible.
+
+\section*{Boundaries of paths and the fundamental theorem}
 
 If $C$ is a path from point $Q$ to point $P$, then we say that the boundary
 of $C$ is $P$ with positive orientation and $Q$ with negative orientation.
@@ -224,7 +246,30 @@ $$
 2e^3.
 $$
 
-\section{$2$-forms}
+Another example of this use is to compute a path integral by computing the
+antiderivative.  For example, suppose $C$ is a straight line from $(0,0,0)$
+to $(1,2,3)$, and we want to compute
+\begin{equation*}
+\int_C y \, dx + x \, dy + 2z \, dz.
+\end{equation*}
+If we can find an $f$ whose total derivative is the form above, then
+we are done.  If $f$ exists then $\frac{\partial f}{\partial x} = y$,
+so $f = xy + g(y,z)$ for some function $g$.  Taking the derivative
+with respect to $y$ gets us
+$\frac{\partial f}{\partial y} = x + \frac{\partial g}{\partial y}$,
+so $g$ is independent of $y$.  Taking the derivative with respect
+to $z$ we find
+$2z = \frac{\partial f}{\partial z} = \frac{\partial g}{\partial z}$,
+so $g = z^2$ (plus a constant, but we just need one antiderivative).
+So $f = xy+z^2$.  In other words:
+\begin{equation*}
+\int_C y \, dx + x \, dy + 2z \, dz
+=
+\int_C df = \int_{\partial C} f
+= f(1,2,3) - f(0,0,0) = 1\cdot 2+3^2 = 11.
+\end{equation*}
+
+\section*{$2$-forms}
 
 OK, so far we've only seemed to make up notation for things we already know.
 For $2$-forms we need to be even more careful with orientation and we
@@ -455,7 +500,7 @@ h\, dx \wedge dy
 $$
 We use only one integral sign for integrals of forms by convention.
 
-There is another way to see what this integral is using the change of
+A way to compute surface integrals is suggested by the change of
 variables formula from multivariable calculus.
 Denote
 $$
@@ -489,12 +534,11 @@ where the ordering $u$ and then $v$
 gives the orientation of $S$ via the right hand rule.
 So $x$, $y$, and $z$ are functions of $(u,v)$.
 Then
-\begin{multline*}
+\begin{equation*}
 \int_S
 f\, dy \wedge dz + 
 g\, dz \wedge dx +
 h\, dx \wedge dy
-\\
 =
 \iint_D
 \left(
@@ -509,7 +553,7 @@ h
 \right)
 \,
 du\, dv .
-\end{multline*}
+\end{equation*}
 Compare this to how we computed 1-form integrals above in
 equation \eqref{eq:oneformev}, and it will feel very familiar.
 
@@ -549,9 +593,32 @@ du\, dv
 \frac{-2}{3} .
 \end{multline*}
 
+For another example, suppose $\eta = xyz \, dy \wedge dz$,
+and let the surface $S$ be the cylinder of radius 1 around the $z$-axis
+for $0 \leq z \leq 1$ oriented with the normal outwards (away from the
+$z$-axis).   Let us compute $\int_S \eta$.
+
+First we parametrize $S$.  Let $(u,v)$ map to $(\cos u, \sin u, v)$
+for $0 \leq u \leq 2\pi$ and $0 \leq v \leq 1$.  We check that the
+right hand rule, curling our fingers around the $u$ direction followed by
+the $v$ direction gets us the outward normal.  If it didn't we could just
+swap $u$ and $v$.
+
+So
+\begin{equation*}
+\int_S xyz \, dy \wedge dz
+=
+\int_0^1
+\int_0^{2\pi}
+\underbrace{(\cos u)}_{x} \underbrace{(\sin u)}_{y} \underbrace{v}_{z}
+\underbrace{( \cos u )}_{\frac{\partial (y,z)}{\partial (u,v)}}
+\, du \, dv
+= 0 .
+\end{equation*}
+
 This is a good way to remember how to integrate parametrized surfaces.
 
-\section{Stokes' Theorem}
+\section*{Stokes' Theorem}
 
 The classical Stokes' Theorem can now be stated.  Let $S$ be an oriented
 surface and $\partial S$ be the boundary curve of $S$ oriented according to
@@ -586,7 +653,7 @@ Calculus.  The only difference is that $S$ is a surface or a curve
 and 
 $\omega$ is a 0-form (function) or a 1-form.
 
-\section{3-forms}
+\section*{3-forms}
 
 If we take one more wedge we find that the only forms that survive our
 rules, namely that $dx \wedge dx = dy \wedge dy = dz \wedge dz = 0$,
@@ -750,7 +817,7 @@ integrate.  In 3-space, $\omega$ is a 0, 1, 2, and
 $\Omega$ is a path (1-dimensional), a surface
 (2-dimensional), or a region (3-dimensional).
 
-\section{Applying in the plane}
+\section*{Applying in the plane}
 
 In the plane you can think of everything as if it were in three space but
 with no $z$ dependence, so no $dz$.  So there are only 0-forms, 1-forms and 2-forms.
