@@ -111,6 +111,11 @@ x^2y \, dx +
 (z+y) \, dz .
 $$
 
+So a 1-form is a combination of $dx$, $dy$, and $dz$.  We cannot just
+multiply the $dx$, $dy$, $dz$, although more on that later.  These objects
+keep track of how we integrate.  In some sense they are the ``derivatives''
+of the coordinate functions $x$, $y$, and $z$.
+
 One-forms are things that are integrated on (oriented) paths, as paths are
 one-dimensional.  If $C$ is a path, then we define 
 \begin{equation*}
@@ -214,6 +219,33 @@ of any function $f$.  If it were, then
 \frac{\partial (x)}{\partial x} = 1,
 \end{equation*}
 and that is impossible.
+
+Notice that the $dx$ is the derivative of $x$.  That is, if $f(x,y,z) = x$, then
+$$
+df =
+\frac{\partial f}{\partial x}\, dx + 
+\frac{\partial f}{\partial y}\, dy + 
+\frac{\partial f}{\partial z}\, dz =
+1\, dx + 
+0\, dy + 
+0\, dz = dx .
+$$
+Similarly for $dy$ and $dz$.  So the notation keeps track of changes of
+variables and chain rule as we saw above.  That is, $dx$ becomes
+$\frac{dx}{dt} dt$ when we integrate with respect to $t$.  Similarly if we
+parametrize a curve with respect to $x$, we do not need to change the $dx$.
+Consider a curve $C$
+given by $y=x^2$, $z=x^3$ for $0 \leq x \leq 1$.  Let us compute a
+simple integral over $C$:
+\begin{equation*}
+\int_C x \, dx + y \, dy + z \, dz
+=
+\int_0^1 x \, dx + y \, \frac{dy}{dx} dx + z \, \frac{dz}{dx} dx
+=
+\int_0^1 \bigl( x + x^2 (2x) + x^3 (3x^2) \bigr) \, dx
+=
+\frac{3}{2} .
+\end{equation*}
 
 \section*{Boundaries of paths and the fundamental theorem}
 
@@ -821,8 +853,8 @@ $\Omega$ is a path (1-dimensional), a surface
 
 In the plane you can think of everything as if it were in three space but
 with no $z$ dependence, so no $dz$.  So there are only 0-forms, 1-forms and 2-forms.
-In fact the only $2$-form that appears is the $f dx \wedge dy$ since
-the other possibility gets you $dy \wedge dx = - dx \wedge dy$.
+The only $2$-form that appears is $f dx \wedge dy$, since
+the other possible wedge product gets you $dy \wedge dx = - dx \wedge dy$.
 The derivative of a one-form is
 \begin{equation*}
 \begin{split}
