@@ -354,7 +354,8 @@ f\, dy \wedge dz +
 g\, dz \wedge dx +
 h\, dx \wedge dy .
 \]
-If any other wedges appear, we can use the rules above to convert them to this
+If any other wedges appear, we can (if we really want to)
+use the rules above to convert them to this
 form.  For example
 \[
 x^2 \, dy \wedge dz + 
@@ -366,26 +367,24 @@ x^2 \, dy \wedge dz - y \, dz \wedge dx .
 We also impose some further algebra rules on this product.  Anything we would
 call a ``product'' had better be
 what we call bilinear:  If $\omega, \eta$, and $\gamma$ are one-forms, then
-\begin{equation*}
+\begin{align*}
 (\omega + \eta) \wedge \gamma
-=
+& =
 \omega \wedge \gamma
 +
-\eta \wedge \gamma .
-\end{equation*}
+\eta \wedge \gamma ,
+\\
+\omega \wedge (\eta + \gamma)
+& =
+\omega \wedge \eta
++
+\omega \wedge \gamma .
+\end{align*}
 If $f$ is a function, then
 \begin{equation*}
 (f \omega) \wedge \eta =
 f (\omega \wedge \eta) =
 \omega \wedge ( f \eta) .
-\end{equation*}
-We also have the distributive law:
-\begin{equation*}
-\omega \wedge (\eta + \gamma)
-=
-\omega \wedge \eta
-+
-\omega \wedge \gamma .
 \end{equation*}
 
 Let's see these rules on an example:
@@ -460,6 +459,29 @@ d ( f \, dx + g \, dy + h \, dz ) &=
 df \wedge dx + dg \wedge dy + dh \wedge dz
 \\
 & =
+\left( \frac{\partial f}{\partial x} \, dx 
++
+\frac{\partial f}{\partial y} \, dy 
++
+\frac{\partial f}{\partial z} \, dz \right) \wedge dx
+\\
+& \qquad \qquad
++
+\left( \frac{\partial g}{\partial x} \, dx
++
+\frac{\partial g}{\partial y} \, dy 
++
+\frac{\partial g}{\partial z} \, dz \right) \wedge dy
+\\
+& \qquad \qquad
++
+\left( \frac{\partial h}{\partial x} \, dx
++
+\frac{\partial h}{\partial y} \, dy
++
+\frac{\partial h}{\partial z} \, dz \right) \wedge dz
+\displaybreak[0]\\
+& =
 \frac{\partial f}{\partial x} \, dx \wedge dx
 +
 \frac{\partial f}{\partial y} \, dy \wedge dx
@@ -495,24 +517,55 @@ You should recognise the formula for the curl.  That is, if the functions
 $f,g,h$ are coefficients of a vector field, then the 
 coefficients of the derivative of the one-form
 are the coefficients of the curl of the vector field.
+Again the wedge product and $d$ gets us the right thing in the right context.
+And to do computations with $d$ and the wedge is much easier to do because one
+only needs to follow a couple of simple rules.
 
 For example,
 \[
+\begin{split}
 d( x \, dx + y^2 \, dz)
-=
+& = 
+1 \, dx \wedge dx + 0 \, dy \wedge dx + 0 \, dz \wedge dz
++
+0 \, dx \wedge dz + 2y \, dy \wedge dz + 0 \, dz \wedge dz
+\\
+& =
 2 y \, dy \wedge dz .
+\end{split}
+\]
+
+Of course we do not need to do this in excruciating detail;
+we know which derivatives will end up zero,
+and which wedge products will end up zero.  We need to only look at those.
+So perhaps,
+\[
+\begin{split}
+d( xy \, dx + z^2 \,dy + y^2 \, dz)
+& =
+x \, dy \wedge dx
++
+2z \, dz \wedge dy
++
+2y \, dy \wedge dz
+\\
+& =
+(2y -2z ) \, dy \wedge dz
+- x \, dx \wedge dy .
+\end{split}
 \]
 
 The formula $\nabla \times \nabla f = \vec{0}$ appears in the fact that
 \[
 d(df) = 0 .
 \]
-This is in fact a feature of the $d$ operator, and it is sometimes
+This is a general feature of the $d$ operator, and it is sometimes
 written as $d^2 = 0$.
 
 OK, now that we have the derivative, we also want to integrate $2$-forms.
 $2$-forms are integrated over surfaces.  Let $S$ be an oriented surface
 where $\hat{n}$ is the unit normal that gives the orientation.
+Suppose $S$ is a graph of $z = \varphi(x,y)$ and $\hat{n}$ is the upward unit normal.
 We define
 \[
 \int_S
@@ -522,12 +575,18 @@ h\, dx \wedge dy
 =
 \iint_S \langle f, g, h \rangle \cdot \hat{n} \, dS .
 \]
-We use only one integral sign for integrals of forms by convention.
+We use only one integral sign for integrals of forms by convention,
+even though it is a surface integral.
+The definition works for any surface integral not just a graph,
+but in this form, it is perhaps not so easy to figure out the orientation.
+We will see how to compute this surface integral in a much nicer way below.
 
-Again, we have only defined a new notation for something we knew how to compute already,
+Again, we have only defined a new notation for something we knew how
+to compute already,
 the flux integral.  But using this notation,
 a way to compute surface integrals is suggested by the change of
-variables formula from multivariable calculus.
+variables formula from multivariable calculus.  And in this way we can
+compute the integral for any parametrized surface easily.
 Denote
 \[
 \frac{\partial (x,y)}{\partial (u,v)}
@@ -558,6 +617,9 @@ This formula is called the Jacobian determinant.
 Let $S$ be parametrized by $(u,v)$ ranging over a domain $D$,
 where the ordering $u$ and then $v$
 gives the orientation of $S$ via the right hand rule.
+That is, if we curl the fingers  on our right hand first in the $u$ direction,
+then in the $v$ direction,
+then our thumb would be the unit normal giving the orientation.
 So $x$, $y$, and $z$ are functions of $(u,v)$.
 Then
 \begin{equation*}
@@ -651,8 +713,8 @@ So
 
 This is a good way to remember how to integrate parametrized surfaces.
 Another advantage is that you do not have to always put everything into the normal form.
-Perhaps in the last example if you swap $dy$ and $dz$ (and so introduce a negative sign)
-and we write the integral as $\int_S -xz \, dz \wedge dy$.  We can just compute the integral
+Perhaps in the last example you swap $dy$ and $dz$ (and so introduce a negative sign)
+and write the integral as $\int_S -xz \, dz \wedge dy$.  We can just compute the integral
 that way:
 \begin{equation*}
 \begin{split}
