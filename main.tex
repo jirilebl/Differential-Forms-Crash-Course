@@ -247,7 +247,7 @@ df =
 $$
 Similarly for $dy$ and $dz$.  So the notation keeps track of changes of
 variables and chain rule as we saw above.  That is, $dx$ becomes
-$\frac{dx}{dt} dt$ when we integrate with respect to $t$.  Similarly if we
+$\frac{dx}{dt} \, dt$ when we integrate with respect to $t$.  Similarly if we
 parametrize a curve with respect to $x$, we do not need to change the $dx$.
 Consider a curve $C$
 given by $y=x^2$, $z=x^3$ for $0 \leq x \leq 1$.  Let us compute a
@@ -255,7 +255,7 @@ simple integral over $C$:
 \begin{equation*}
 \int_C x \, dx + y \, dy + z \, dz
 =
-\int_0^1 x \, dx + y \, \frac{dy}{dx} dx + z \, \frac{dz}{dx} dx
+\int_0^1 x \, dx + y \, \frac{dy}{dx} \, dx + z \, \frac{dz}{dx} \, dx
 =
 \int_0^1 \bigl( x + x^2 (2x) + x^3 (3x^2) \bigr) \, dx
 =
@@ -434,7 +434,7 @@ hc\, dz \wedge dz
 =
 (gc-hb)\, dy \wedge dz +
 (ha-fc)\, dz \wedge dx +
-(fb - ga) \, dx \wedge dy .
+(fb-ga) \, dx \wedge dy .
 \end{multline*}
 You should recognize the formula for the cross product.  That is,
 the result is a 2-form whose coefficients are
@@ -773,7 +773,7 @@ is now the same for both the Stokes' Theorem and the Fundamental Theorem of
 Calculus.  The only difference is that $S$ is now a surface and not a curve and 
 $\omega$ is a 1-form and not a 0-form (function).
 
-\section*{3-forms}
+\section*{3-forms and the Divergence Theorem}
 
 If we take one more wedge we find that the only forms that survive our
 rules, namely that $dx \wedge dx = dy \wedge dy = dz \wedge dz = 0$,
@@ -819,7 +819,7 @@ Example:  Let $R$ be the region defined by $-1 < x < 2$, $2 < y < 3$, $0<z<1$.
 Then
 \begin{equation*}
 \begin{split}
-\int_R x^2 y e^z dx \wedge dy \wedge dz
+\int_R x^2 y e^z \, dx \wedge dy \wedge dz
 & =
 \int_{-1}^2 \int_2^3 \int_0^1 
 x^2 y e^z \, dz \, dy \, dx
@@ -900,13 +900,15 @@ We are then not surprised that the Divergence Theorem
 \langle f,g,h \rangle \cdot
 \hat{n} \, dS,
 \end{equation*}
-where $R$ is oriented with the outward unit normal $\hat{n}$
-and
-$\partial R$ is the boundary of $R$ oriented compatibly,
+where $R$ is oriented positively and 
+$\hat{n}$ is the outward unit normal on
+the boundary $\partial R$,
 takes the form
 \begin{equation*}
 \int_R d \omega = \int_{\partial R} \omega .
 \end{equation*}
+
+\section*{Generalized Stokes' Theorem}
 
 The formula
 \begin{equation*}
@@ -934,19 +936,20 @@ corresponds to the diagram
 \]
 We mentioned above that $\nabla \times \nabla f = \vec{0}$ is the formula $d(df) = 0$
 for a function ($0$-form) $f$.
-Similarly $\nabla \cdot \nabla \vec{F} = 0$ is the formula $d(d\omega) = 0$
-for a $1$-form $\omega$.  It is always true that taking the $d$ operator derivative
-of a derivative is $0$.  In other words,
+Similarly $\nabla \cdot \nabla \times \vec{F} = 0$ is the formula $d(d\omega) = 0$
+for a $1$-form $\omega$.  It is always true that using the
+$d$ operator on an output of a $d$ operator,
+that is a $d$-derivative of a $d$-derivative, is $0$.  In other words,
 \[
 d(d\omega) = 0
 \]
-for all differential forms $\omega$.  It is sometimes shortened to $d^2 = 0$
+for all differential forms $\omega$.  It is sometimes shortened to $d^2 = 0$.
 
 \section*{Applying in the plane}
 
-In the plane you can think of everything as if it were in three space but
+In the plane, think of everything as if it were in three space but
 with no $z$ dependence, so no $dz$.  So there are only 0-forms, 1-forms and 2-forms.
-The only $2$-form that appears is $f dx \wedge dy$, since
+The only $2$-form that appears is $f \, dx \wedge dy$, since
 the other possible wedge product gets you $dy \wedge dx = - dx \wedge dy$.
 The derivative of a one-form is
 \begin{equation*}
@@ -956,14 +959,14 @@ d(f \, dx + g \, dy)
 df \wedge dx + dg \wedge dy
 \\
 & =
-\left(\frac{\partial f}{\partial x} dx + \frac{\partial f}{\partial y} dy \right)  \wedge dx
+\left(\frac{\partial f}{\partial x} \, dx + \frac{\partial f}{\partial y} \, dy \right)  \wedge dx
 +
-\left(\frac{\partial g}{\partial x} dx + \frac{\partial g}{\partial y} dy \right)  \wedge dy
+\left(\frac{\partial g}{\partial x} \, dx + \frac{\partial g}{\partial y} \, dy \right)  \wedge dy
 \\
 & =
-\frac{\partial f}{\partial y} dy \wedge dx
+\frac{\partial f}{\partial y} \, dy \wedge dx
 +
-\frac{\partial g}{\partial x} dx  \wedge dy
+\frac{\partial g}{\partial x} \, dx  \wedge dy
 \\
 & =
 \left(\frac{\partial g}{\partial x} -
@@ -987,11 +990,42 @@ d (f \, dx + g \, dy)
 \end{equation*}
 And you will recognize Green's Theorem.
 
+%\section*{In ${\mathbb{R}}^n$}
+%
+%In $n$ coordinates, the whole setup is the same except that
+%there are more differential forms.  If $x_1$, $x_2$, \ldots, $x_n$
+%are the coordinates, then we have
+%\[
+%dx_1, \quad dx_2, \quad \ldots, \quad dx_n
+%\]
+%as our basic one-forms.
+%Then the two-forms are expressions such as
+%\[
+%f_1  \, dx_1 \wedge dx_2
+%+
+%f_2\,
+%dx_2 \wedge dx_3
+%+
+%\cdots
+%\]
+%Note now that there are actually a lot more coefficients
+%in two forms (as long as $n$ is bigger than 3).
+%In fact, there are $\frac{n(n+1)}{2}$ coefficients
+%as that's how many basic one forms $dx_{j} \wedge dx_{k}$ there are.
+%The derivative is still computed the same way.  That is
+%\[
+%d(f \, dx_{k_1} \wedge dx_{k_2} \wedge \cdots \wedge dx_{k_\ell})
+%=
+%df \wedge dx_{k_1} \wedge dx_{k_2} \wedge \cdots \wedge dx_{k_\ell} .
+%\]
+%
+%FIXME:
+
 \section*{Changing coordinates}
 
 Differential forms take care of changing coordinates easily.  The trick is
 to know that $dx$, $dy$, $dz$ are the derivatives of the $x$, $y$, and $z$ coordinate
-functions.  So suppose we wish to write down $dr$, $d\theta$, $dz$ of cylindrical coordinates.
+functions.  Suppose we wish to write down everything in terms of $dr$, $d\theta$, $dz$ of cylindrical coordinates.
 Consider
 \[
 x = r \cos \theta, \quad y = r \sin \theta, \quad z = z .
@@ -1002,16 +1036,16 @@ dx & = d(r \cos \theta) = \cos \theta \, dr - r \sin \theta \, d \theta , \\
 dy & = d(r \sin \theta) = \sin \theta \, dr + r \cos \theta \, d \theta , \\
 dz & = d(z) = dz .
 \end{align*}
-So let us suppose we wish to compute
+Let us suppose we wish to compute
 \[
-\int_C (x^2+y^2) dx + z dy + dz
+\int_C (x^2+y^2) \, dx + z \, dy + dz
 \]
 where $C$ is the spiral given by $x = \cos t$, $y = \sin t$, $z = t$ for $0 \leq t \leq 2 \pi$.
-We can easily compute this to be $2 \pi$, but let us for the sake of the example
+We can easily compute this using cartesian to be $2 \pi$, but let us for the sake of the example
 change to cylindrical coordinates.
 \begin{equation*}
 \begin{split}
-\int_C r^2 dx + z dy + dz
+\int_C r^2 \, dx + z \, dy + dz
 & =
 \int_C r^2 (\cos \theta \, dr - r \sin \theta \, d \theta)
 + z (\sin \theta \, dr + r \cos \theta \, d \theta)
@@ -1026,16 +1060,16 @@ change to cylindrical coordinates.
 The curve $C$ in cylindrical coordinates is $r =1$, $\theta = t$, $z = t$ for $0 \leq t \leq 2 \pi$.
 So
 \[
-dr = \frac{dr}{dt} dt = 0,
+dr = \frac{dr}{dt} \, dt = 0,
 \qquad
-d\theta = \frac{d\theta}{dt} dt = dt,
+d\theta = \frac{d\theta}{dt} \, dt = dt,
 \qquad
-dz = \frac{dz}{dt} dt = dz.
+dz = \frac{dz}{dt} \, dt = dz.
 \]
 And so plugging it in we compute
 \begin{equation*}
 \begin{split}
-\int_C r^2 dx + z dy + dz
+\int_C r^2 \, dx + z \, dy + dz
 & =
 \int_C ( r^2 \cos \theta + z \sin \theta) \, dr
 + (- r^3 \sin \theta + z \cos \theta ) \, d\theta
@@ -1074,6 +1108,6 @@ r(\cos^2 \theta + \sin^2 \theta) \, dr \wedge d\theta
 r \, dr \wedge d\theta .
 \end{split}
 \end{equation*}
-We obtain the familiar $r \,dr \,d\theta$ from caculus.
+We obtain the familiar $r \,dr \,d\theta$ from calculus.
 
 \end{document}
