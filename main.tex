@@ -1036,28 +1036,34 @@ dx & = d(r \cos \theta) = \cos \theta \, dr - r \sin \theta \, d \theta , \\
 dy & = d(r \sin \theta) = \sin \theta \, dr + r \cos \theta \, d \theta , \\
 dz & = d(z) = dz .
 \end{align*}
-Let us suppose we wish to compute
+Consider the one-form
 \[
-\int_C (x^2+y^2) \, dx + z \, dy + dz
+\omega = (x^2+y^2) \, dx + z \, dy + dz
 \]
-where $C$ is the spiral given by $x = \cos t$, $y = \sin t$, $z = t$ for $0 \leq t \leq 2 \pi$.
-We can easily compute this using cartesian to be $2 \pi$, but let us for the sake of the example
-change to cylindrical coordinates.
+Let us change this one-form into cylindrical coordinates.
 \begin{equation*}
 \begin{split}
-\int_C r^2 \, dx + z \, dy + dz
+\omega = 
+r^2 \, dx + z \, dy + dz
 & =
-\int_C r^2 (\cos \theta \, dr - r \sin \theta \, d \theta)
+r^2 (\cos \theta \, dr - r \sin \theta \, d \theta)
 + z (\sin \theta \, dr + r \cos \theta \, d \theta)
 + dz
 \\
 & =
-\int_C ( r^2 \cos \theta + z \sin \theta) \, dr
+( r^2 \cos \theta + z \sin \theta) \, dr
 + (- r^3 \sin \theta + z \cos \theta ) \, d\theta
 + dz .
 \end{split}
 \end{equation*}
-The curve $C$ in cylindrical coordinates is $r =1$, $\theta = t$, $z = t$ for $0 \leq t \leq 2 \pi$.
+
+Now suppose we wish to find
+\[
+\int_C \omega ,
+\]
+where $C$ is the spiral given
+in cylindrical coordinates by
+$r =1$, $\theta = t$, $z = t$ for $0 \leq t \leq 2 \pi$.
 So
 \[
 dr = \frac{dr}{dt} \, dt = 0,
@@ -1069,7 +1075,7 @@ dz = \frac{dz}{dt} \, dt = dz.
 And so plugging it in we compute
 \begin{equation*}
 \begin{split}
-\int_C r^2 \, dx + z \, dy + dz
+\int_C \omega
 & =
 \int_C ( r^2 \cos \theta + z \sin \theta) \, dr
 + (- r^3 \sin \theta + z \cos \theta ) \, d\theta
@@ -1082,7 +1088,12 @@ And so plugging it in we compute
 \end{split}
 \end{equation*}
 
-Similarly what about the area measure in cylindrical.  In the plane
+Changing variables for two-forms
+and three-forms is exactly the same idea since they are constructed out of $dx$, $dy$, $dz$.
+
+For example,
+what about the area measure on the $xy$-plane in cylindrical (so in polar).
+In the plane
 the area measure $dA$ is $dx \wedge dy$, so
 \begin{equation*}
 \begin{split}
@@ -1109,5 +1120,11 @@ r \, dr \wedge d\theta .
 \end{split}
 \end{equation*}
 We obtain the familiar $r \,dr \,d\theta$ from calculus.
+
+We get the volume form $dV$ too,
+\[
+dx \wedge dy \wedge dz
+= r \, dr \wedge d\theta \wedge dz .
+\]
 
 \end{document}
